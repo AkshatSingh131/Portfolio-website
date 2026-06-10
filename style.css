@@ -203,42 +203,80 @@ section {
     transform: translateY(-3px);
 }
 
-the lines inside circle is problem and this is the code:-
 .hero-img .glowing-circle {
-    width: 340px;
-    height: 340px;
-    border-radius: 50%;
-    position: relative;
-    display: grid;
-    place-items: center;
-    background: var(--bg-color);
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    position: relative;
+    background: conic-gradient(#1a6ef5, #ffffff 50%, #1a6ef5);
+    animation: ringpin 8s linear infinite;
 }
 
-/* PURE BORDER RING (key fix) */
-.hero-img .glowing-circle {
-    background:
-        radial-gradient(circle, var(--bg-color) 62%, transparent 63%),
-        conic-gradient(
-            var(--main-color),
-            transparent,
-            var(--text-color),
-            var(--main-color)
-        );
-    animation: rotateCircle 8s linear infinite;
+.hero-img .glowing-circle::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    background: var(--bg-color);
+    z-index: 0;
 }
 
-/* image layer */
-.hero-img img {
-    width: 92%;
-    height: 92%;
-    border-radius: 50%;
-    object-fit: cover;
-    z-index: 1;
+.cube-scene {
+    position: relative;
+    z-index: 1;
+    perspective: 500px;
 }
 
-/* ensure nothing outside leaks */
-.hero-img .glowing-circle {
-    overflow: hidden;
+.cube {
+    width: 110px;
+    height: 110px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube 7s linear infinite;
+}
+
+.face {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.f-blue  {
+    background: rgba(26, 110, 245, 0.15);
+    border: 1.5px solid #1a6ef5;
+    color: #ffffff;
+}
+
+.f-white {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+}
+
+.face:nth-child(1) { transform: translateZ(55px); }
+.face:nth-child(2) { transform: rotateY(180deg) translateZ(55px); }
+.face:nth-child(3) { transform: rotateY(90deg)  translateZ(55px); }
+.face:nth-child(4) { transform: rotateY(-90deg) translateZ(55px); }
+.face:nth-child(5) { transform: rotateX(90deg)  translateZ(55px); }
+.face:nth-child(6) { transform: rotateX(-90deg) translateZ(55px); }
+
+@keyframes rotateCube {
+    0%   { transform: rotateX(0deg)   rotateY(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+@keyframes ringpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
 }
 @keyframes rotateCircle {
     100% { transform: rotate(360deg); }
