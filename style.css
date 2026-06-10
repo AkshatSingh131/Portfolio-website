@@ -203,33 +203,42 @@ section {
     transform: translateY(-3px);
 }
 
+the lines inside circle is problem and this is the code:-
 .hero-img .glowing-circle {
-    width: 340px;
-    height: 340px;
-    border-radius: 50%;
-    position: relative;
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-    /* PURE BORDER RING (tightened percentages) */
-    background:
-        radial-gradient(circle, var(--bg-color) 67.5%, transparent 68%),
-        conic-gradient(
-            var(--main-color),
-            transparent,
-            var(--text-color),
-            var(--main-color)
-        );
-    animation: rotateCircle 8s linear infinite;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    position: relative;
+    display: grid;
+    place-items: center;
+    background: var(--bg-color);
 }
 
-/* Slightly larger image to hide the inner edge of the gradient */
+/* PURE BORDER RING (key fix) */
+.hero-img .glowing-circle {
+    background:
+        radial-gradient(circle, var(--bg-color) 62%, transparent 63%),
+        conic-gradient(
+            var(--main-color),
+            transparent,
+            var(--text-color),
+            var(--main-color)
+        );
+    animation: rotateCircle 8s linear infinite;
+}
+
+/* image layer */
 .hero-img img {
-    width: 94%; 
-    height: 94%;
-    border-radius: 50%;
-    object-fit: cover;
-    z-index: 1;
+    width: 92%;
+    height: 92%;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* ensure nothing outside leaks */
+.hero-img .glowing-circle {
+    overflow: hidden;
 }
 @keyframes rotateCircle {
     100% { transform: rotate(360deg); }
