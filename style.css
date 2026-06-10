@@ -213,47 +213,37 @@ section {
     width: 340px;
     height: 340px;
     border-radius: 50%;
+    position: relative;
     display: grid;
     place-items: center;
-    position: relative;
-    overflow: hidden;
     background: var(--bg-color);
 }
 
-/* simple rotating border glow */
-.hero-img .glowing-circle::before {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    background: conic-gradient(
-        var(--main-color),
-        transparent,
-        var(--text-color),
-        var(--main-color)
-    );
+/* PURE BORDER RING (key fix) */
+.hero-img .glowing-circle {
+    background:
+        radial-gradient(circle, var(--bg-color) 62%, transparent 63%),
+        conic-gradient(
+            var(--main-color),
+            transparent,
+            var(--text-color),
+            var(--main-color)
+        );
     animation: rotateCircle 8s linear infinite;
-    z-index: 0;
 }
 
-/* inner cover to remove “square illusion” */
-.hero-img .glowing-circle::after {
-    content: "";
-    position: absolute;
-    inset: 4px;
-    border-radius: 50%;
-    background: var(--bg-color);
-    z-index: 1;
-}
-
-/* image */
+/* image layer */
 .hero-img img {
-    position: relative;
     width: 92%;
     height: 92%;
     border-radius: 50%;
     object-fit: cover;
-    z-index: 2;
+    z-index: 1;
+}
+
+/* ensure nothing outside leaks */
+.hero-img .glowing-circle {
+    overflow: hidden;
 }
 
 @keyframes rotateCircle {
