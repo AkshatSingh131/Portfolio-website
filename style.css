@@ -211,6 +211,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow:hidden
 }
 
 .hero-img .glowing-circle::before {
