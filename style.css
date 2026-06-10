@@ -210,36 +210,26 @@ section {
     position: relative;
     display: grid;
     place-items: center;
-    background: var(--bg-color); /* Perfectly clean, static background */
     overflow: hidden;
-}
-
-/* The rotating glowing ring sits behind */
-.hero-img .glowing-circle::before {
-    content: '';
-    position: absolute;
-    top: -4px; /* Slightly larger than the container to create a border effect */
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border-radius: 50%;
-    background: conic-gradient(
-        var(--main-color),
-        transparent,
-        var(--text-color),
-        var(--main-color)
-    );
+    /* PURE BORDER RING (tightened percentages) */
+    background:
+        radial-gradient(circle, var(--bg-color) 67.5%, transparent 68%),
+        conic-gradient(
+            var(--main-color),
+            transparent,
+            var(--text-color),
+            var(--main-color)
+        );
     animation: rotateCircle 8s linear infinite;
-    z-index: 0;
 }
 
-/* Image layer */
+/* Slightly larger image to hide the inner edge of the gradient */
 .hero-img img {
-    width: 92%;
-    height: 92%;
+    width: 94%; 
+    height: 94%;
     border-radius: 50%;
     object-fit: cover;
-    z-index: 1; /* Sits firmly above the rotating pseudo-element */
+    z-index: 1;
 }
 @keyframes rotateCircle {
     100% { transform: rotate(360deg); }
