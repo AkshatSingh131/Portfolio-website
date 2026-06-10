@@ -211,7 +211,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow:hidden
+    overflow:hidden;
 }
 
 .hero-img .glowing-circle::before {
@@ -222,6 +222,7 @@ section {
     border-radius: 50%;
     background: linear-gradient(45deg, var(--main-color), transparent, var(--text-color));
     animation: rotateCircle 8s linear infinite;
+    overflow:hidden;
 }
 
 .hero-img img {
