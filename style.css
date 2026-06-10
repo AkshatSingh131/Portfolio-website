@@ -211,27 +211,39 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow:hidden;
+    overflow: hidden;
+    z-index: 0;
 }
 
+/* glowing ring */
 .hero-img .glowing-circle::before {
     content: '';
     position: absolute;
-    width: 102%;
-    height: 102%;
+    inset: 0;
     border-radius: 50%;
     background: linear-gradient(45deg, var(--main-color), transparent, var(--text-color));
     animation: rotateCircle 8s linear infinite;
-    overflow:hidden;
+    z-index: 0;
 }
 
+/* inner mask layer to avoid square artifacts */
+.hero-img .glowing-circle::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    background: var(--bg-color);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* image */
 .hero-img img {
+    position: relative;
     width: 96%;
     height: 96%;
     object-fit: cover;
     border-radius: 50%;
-    z-index: 1;
-    background: var(--bg-color);
+    z-index: 2;
     filter: grayscale(100%);
     transition: 0.5s ease;
 }
