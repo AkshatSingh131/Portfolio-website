@@ -216,36 +216,44 @@ section {
     position: relative;
     display: grid;
     place-items: center;
+    overflow: hidden;
     background: var(--bg-color);
 }
 
-/* PURE BORDER RING (key fix) */
-.hero-img .glowing-circle {
-    background:
-        radial-gradient(circle, var(--bg-color) 62%, transparent 63%),
-        conic-gradient(
-            var(--main-color),
-            transparent,
-            var(--text-color),
-            var(--main-color)
-        );
+/* rotating ring layer (separate pseudo-element ONLY) */
+.hero-img .glowing-circle::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--main-color),
+        transparent,
+        var(--text-color),
+        var(--main-color)
+    );
     animation: rotateCircle 8s linear infinite;
+    z-index: 0;
 }
 
-/* image layer */
+/* inner mask */
+.hero-img .glowing-circle::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background: var(--bg-color);
+    z-index: 1;
+}
+
+/* image */
 .hero-img img {
     width: 92%;
     height: 92%;
     border-radius: 50%;
     object-fit: cover;
-    z-index: 1;
+    z-index: 2;
 }
-
-/* ensure nothing outside leaks */
-.hero-img .glowing-circle {
-    overflow: hidden;
-}
-
 @keyframes rotateCircle {
     100% { transform: rotate(360deg); }
 }
