@@ -203,72 +203,57 @@ section {
     transform: translateY(-3px);
 }
 
-.hero-img .glowing-circle {
-    position: relative;
-    width: 340px;
-    height: 340px;
-    border-radius: 50%;
+.hero-img {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    z-index: 0;
 }
 
 .hero-img .glowing-circle {
-    position: relative;
     width: 340px;
     height: 340px;
     border-radius: 50%;
     display: grid;
     place-items: center;
+    position: relative;
     overflow: hidden;
+    background: var(--bg-color);
 }
 
-/* OUTER GLOW LAYER */
+/* simple rotating border glow */
 .hero-img .glowing-circle::before {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -4px;
     border-radius: 50%;
-    padding: 3px;
-
-    /* key trick: gradient border instead of full background */
-    background: linear-gradient(45deg, var(--main-color), transparent, var(--text-color));
-
-    -webkit-mask: 
-        radial-gradient(farthest-side, transparent calc(100% - 3px), black 100%);
-    
-    mask: 
-        radial-gradient(farthest-side, transparent calc(100% - 3px), black 100%);
-
+    background: conic-gradient(
+        var(--main-color),
+        transparent,
+        var(--text-color),
+        var(--main-color)
+    );
     animation: rotateCircle 8s linear infinite;
-}
-
-/* INNER BACKGROUND MASK */
-.hero-img .glowing-circle::after {
-    content: "";
-    position: absolute;
-    inset: 6px;
-    border-radius: 50%;
-    background: var(--bg-color);
     z-index: 0;
 }
 
-/* IMAGE */
-.hero-img img {
-    position: relative;
-    width: 94%;
-    height: 94%;
+/* inner cover to remove “square illusion” */
+.hero-img .glowing-circle::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
     border-radius: 50%;
-    object-fit: cover;
+    background: var(--bg-color);
     z-index: 1;
-    filter: grayscale(100%);
-    transition: 0.5s ease;
 }
 
-.hero-img:hover img {
-    filter: grayscale(0%);
+/* image */
+.hero-img img {
+    position: relative;
+    width: 92%;
+    height: 92%;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 2;
 }
 
 @keyframes rotateCircle {
